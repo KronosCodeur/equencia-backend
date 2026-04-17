@@ -1,0 +1,47 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php *)",
+      "Bash(composer *)",
+      "Bash(symfony *)",
+      "Bash(git *)",
+      "Bash(cat *)",
+      "Bash(ls *)",
+      "Bash(grep *)",
+      "Bash(find *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(echo *)",
+      "Bash(vendor/bin/php-cs-fixer *)",
+      "Bash(vendor/bin/phpstan *)",
+      "Bash(php bin/phpunit *)",
+      "Bash(php bin/console *)",
+      "Read",
+      "Write",
+      "Edit"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(sudo *)",
+      "Bash(chmod 777 *)",
+      "Read(.env.local)",
+      "Read(.env.*.local)",
+      "Read(**/secrets/**)",
+      "Read(config/jwt/private.pem)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$FILEPATH\" | grep -q '\\.php$'; then vendor/bin/php-cs-fixer fix \"$FILEPATH\" --quiet 2>/dev/null; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
