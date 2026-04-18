@@ -1,0 +1,7 @@
+lexik_jwt_authentication:
+    secret_key: ~
+    public_key: '%env(JWT_PUBLIC_KEY)%'
+    pass_phrase: ~
+    token_ttl: '%env(int:JWT_TOKEN_TTL)%'
+    encoder:
+        signature_algorithm: RS256
