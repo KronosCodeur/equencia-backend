@@ -28,7 +28,7 @@ FROM base AS dev
 ENV APP_ENV=dev
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-COPY composer.json composer.lock ./
+COPY composer.json composer.lock* ./
 RUN composer install --no-scripts --no-autoloader
 
 COPY . .
