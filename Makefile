@@ -217,11 +217,10 @@ phpstan:
 .PHONY: jwt-keys
 jwt-keys:
 	@echo "Génération des clés JWT RS256..."
-	@mkdir -p services/auth/config/jwt
+	@mkdir -p services/auth/config/jwt services/rh/config/jwt services/ops/config/jwt
 	@openssl genrsa -out services/auth/config/jwt/private.pem 4096
 	@openssl rsa -pubout -in services/auth/config/jwt/private.pem -out services/auth/config/jwt/public.pem
 	@cp services/auth/config/jwt/public.pem services/rh/config/jwt/public.pem
 	@cp services/auth/config/jwt/public.pem services/ops/config/jwt/public.pem
-	@mkdir -p services/rh/config/jwt services/ops/config/jwt
 	@echo "Clés générées et distribuées aux services rh et ops."
 	@echo "IMPORTANT: Ne jamais committer private.pem dans Git."

@@ -1,5 +1,3 @@
-version: "3.9"
-
 # ─────────────────────────────────────────────────────────────
 #  Equencia Backend — Docker Compose LOCAL
 #  Reverse proxy : Nginx (local) | Traefik en production
