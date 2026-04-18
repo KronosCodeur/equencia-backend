@@ -1,0 +1,61 @@
+# ─────────────────────────────────────────────────────────────
+#  Equencia — Traefik Routes Dynamiques (PRODUCTION)
+# ─────────────────────────────────────────────────────────────
+
+http:
+  routers:
+    auth-router:
+      rule: "Host(`api.equencia.app`) && PathPrefix(`/api/auth`, `/api/tenants`)"
+      service: auth-service
+      entryPoints: [websecure]
+      tls:
+        certResolver: letsencrypt
+      middlewares: [rate-limit, cors-headers]
+
+    rh-router:
+      rule: "Host(`api.equencia.app`) && PathPrefix(`/api/employees`, `/api/attendance`, `/api/planning`, `/api/leaves`, `/api/payroll`, `/api/departments`, `/api/sites`)"
+      service: rh-service
+      entryPoints: [websecure]
+      tls:
+        certResolver: letsencrypt
+      middlewares: [rate-limit, cors-headers]
+
+    ops-router:
+      rule: "Host(`api.equencia.app`) && PathPrefix(`/api/inspections`, `/api/documents`, `/api/notifications`)"
+      service: ops-service
+      entryPoints: [websecure]
+      tls:
+        certResolver: letsencrypt
+      middlewares: [rate-limit, cors-headers]
+
+  services:
+    auth-service:
+      loadBalancer:
+        servers:
+          - url: "http://auth:8001"
+
+    rh-service:
+      loadBalancer:
+        servers:
+          - url: "http://rh:8002"
+
+    ops-service:
+      loadBalancer:
+        servers:
+          - url: "http://ops:8003"
+
+  middlewares:
+    rate-limit:
+      rateLimit:
+        average: 100
+        burst: 50
+
+    cors-headers:
+      headers:
+        accessControlAllowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+        accessControlAllowHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
+        accessControlAllowOriginList:
+          - "https://equencia.app"
+          - "https://app.equencia.app"
+        accessControlMaxAge: 100
+        addVaryHeader: true
