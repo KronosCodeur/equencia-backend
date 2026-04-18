@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Domain/Entity/'
+            - '../src/Domain/Entity/Enum/'
+            - '../src/Kernel.php'
+
+    App\Infrastructure\Security\TenantContext:
+        public: true

@@ -1,0 +1,9 @@
+controllers:
+    resource:
+        path: ../src/Interface/Controller/
+        namespace: App\Interface\Controller
+    type: attribute
+
+api_platform:
+    resource: .
+    type: api_platform
