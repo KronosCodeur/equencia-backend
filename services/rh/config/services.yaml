@@ -1,0 +1,26 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Domain/Entity/'
+            - '../src/Domain/Entity/Enum/'
+            - '../src/Kernel.php'
+
+    App\Domain\Repository\EmployeeRepositoryInterface:
+        class: App\Infrastructure\Persistence\DoctrineEmployeeRepository
+
+    App\Domain\Repository\AttendanceRepositoryInterface:
+        class: App\Infrastructure\Persistence\DoctrineAttendanceRepository
+
+    App\Domain\Repository\ShiftRepositoryInterface:
+        class: App\Infrastructure\Persistence\DoctrineShiftRepository
+
+    App\Domain\Repository\LeaveRequestRepositoryInterface:
+        class: App\Infrastructure\Persistence\DoctrineLeaveRequestRepository
+
+    App\Infrastructure\Security\TenantContext:
+        public: true
