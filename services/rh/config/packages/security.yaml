@@ -1,0 +1,24 @@
+security:
+    enable_authenticator_manager: true
+
+    providers:
+        jwt_provider:
+            id: App\Infrastructure\Security\JwtUserProvider
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        api:
+            pattern: ^/api
+            stateless: true
+            jwt: ~
+
+        health:
+            pattern: ^/health
+            security: false
+
+    access_control:
+        - { path: ^/health, roles: PUBLIC_ACCESS }
+        - { path: ^/api,    roles: IS_AUTHENTICATED_FULLY }

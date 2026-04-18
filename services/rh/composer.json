@@ -1,0 +1,81 @@
+{
+    "name": "equencia/rh-service",
+    "description": "Equencia — RH Service : Employees, Attendance, Planning, Leaves, Payroll",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.4",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "equencia/shared": "*",
+        "api-platform/doctrine-orm": "^4.3",
+        "api-platform/symfony": "^4.3",
+        "doctrine/doctrine-bundle": "^3.2",
+        "doctrine/doctrine-migrations-bundle": "^4.0",
+        "doctrine/orm": "^3.3",
+        "lexik/jwt-authentication-bundle": "^3.1",
+        "nelmio/cors-bundle": "^2.6",
+        "symfony/asset": "8.0.*",
+        "symfony/console": "8.0.*",
+        "symfony/dotenv": "8.0.*",
+        "symfony/flex": "^2",
+        "symfony/framework-bundle": "8.0.*",
+        "symfony/mercure-bundle": "^0.3",
+        "symfony/messenger": "8.0.*",
+        "symfony/property-access": "8.0.*",
+        "symfony/property-info": "8.0.*",
+        "symfony/runtime": "8.0.*",
+        "symfony/security-bundle": "8.0.*",
+        "symfony/serializer": "8.0.*",
+        "symfony/uid": "8.0.*",
+        "symfony/validator": "8.0.*",
+        "symfony/yaml": "8.0.*",
+        "endroid/qr-code": "^6.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.59",
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^11.2",
+        "symfony/phpunit-bridge": "^7.1",
+        "zenstruck/foundry": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../packages/shared"
+        }
+    ],
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd"
+        },
+        "post-install-cmd": ["@auto-scripts"],
+        "post-update-cmd": ["@auto-scripts"],
+        "php-cs-fixer": "php-cs-fixer fix src --rules=@Symfony,@PSR12 --diff",
+        "phpstan": "phpstan analyse src --level=8"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "8.0.*"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        }
+    }
+}

@@ -1,0 +1,15 @@
+api_platform:
+    title: 'Equencia RH API'
+    version: '1.0.0'
+    formats:
+        jsonld: ['application/ld+json']
+        json: ['application/json']
+    docs_formats:
+        jsonopenapi: ['application/vnd.openapi+json']
+        html: ['text/html']
+    defaults:
+        stateless: true
+        cache_headers:
+            vary: ['Content-Type', 'Authorization']
+    event_listeners_backward_compatibility_layer: false
+    keep_legacy_inflector: false

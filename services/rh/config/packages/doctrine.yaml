@@ -1,0 +1,25 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:RH_DATABASE_URL)%'
+        types:
+            uuid: Symfony\Bridge\Doctrine\Types\UuidType
+        options:
+            1001: 10  # PDO::ATTR_TIMEOUT
+
+    orm:
+        auto_generate_proxy_classes: true
+        enable_lazy_ghost_objects: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            App:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Domain/Entity'
+                prefix: 'App\Domain\Entity'
+                alias: App
+
+doctrine_migrations:
+    migrations_paths:
+        'DoctrineMigrations': '%kernel.project_dir%/migrations'
+    enable_profiler: false
