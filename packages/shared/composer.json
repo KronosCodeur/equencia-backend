@@ -1,0 +1,23 @@
+{
+    "name": "equencia/shared",
+    "description": "Equencia — Package PHP partagé (ValueObjects, Contracts, Testing helpers)",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.4",
+        "symfony/uid": "^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Equencia\\Shared\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Equencia\\Shared\\Tests\\": "tests/"
+        }
+    }
+}
