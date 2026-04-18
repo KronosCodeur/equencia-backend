@@ -114,6 +114,12 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->updatedAt = new \DateTimeImmutable();
     }
 
+    public function setPasswordHash(string $hash): void
+    {
+        $this->passwordHash = $hash;
+        $this->updatedAt    = new \DateTimeImmutable();
+    }
+
     public function fullName(): string
     {
         return "{$this->firstName} {$this->lastName}";
