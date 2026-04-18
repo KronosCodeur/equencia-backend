@@ -1,0 +1,25 @@
+framework:
+    messenger:
+        failure_transport: failed
+
+        transports:
+            async:
+                dsn: '%env(REDIS_URL)%'
+                options:
+                    stream: '%env(AUTH_REDIS_STREAM)%'
+                    group: auth_workers
+                    consumer: auth_%env(HOSTNAME)%
+                retry_strategy:
+                    max_retries: 3
+                    delay: 1000
+                    multiplier: 2
+                    max_delay: 0
+
+            failed:
+                dsn: '%env(REDIS_URL)%'
+                options:
+                    stream: auth_failed
+
+        routing:
+            App\Application\Command\*: async
+            App\Infrastructure\Messenger\Message\*: async

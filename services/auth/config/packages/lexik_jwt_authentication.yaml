@@ -1,0 +1,19 @@
+lexik_jwt_authentication:
+    secret_key: '%env(resolve:JWT_SECRET_KEY)%'
+    public_key: '%env(resolve:JWT_PUBLIC_KEY)%'
+    pass_phrase: '%env(JWT_PASSPHRASE)%'
+    token_ttl: '%env(int:JWT_TOKEN_TTL)%'
+
+    token_extractors:
+        authorization_header:
+            enabled: true
+            prefix: Bearer
+            name: Authorization
+
+    set_cookies:
+        REFRESH_TOKEN:
+            lifetime: '%env(int:JWT_REFRESH_TOKEN_TTL)%'
+            samesite: strict
+            httponly: true
+            secure: true
+            path: /api/auth/refresh

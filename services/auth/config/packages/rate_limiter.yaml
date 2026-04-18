@@ -1,0 +1,11 @@
+framework:
+    rate_limiter:
+        login_limiter:
+            policy: fixed_window
+            limit: '%env(int:RATE_LIMIT_LOGIN)%'
+            interval: '15 minutes'
+
+        register_limiter:
+            policy: fixed_window
+            limit: '%env(int:RATE_LIMIT_REGISTER)%'
+            interval: '1 hour'

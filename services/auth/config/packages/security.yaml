@@ -1,0 +1,48 @@
+security:
+    enable_authenticator_manager: true
+
+    password_hashers:
+        App\Domain\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+
+    providers:
+        jwt_provider:
+            id: App\Infrastructure\Security\JwtUserProvider
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern: ^/api/auth/login
+            stateless: true
+            json_login:
+                check_path: /api/auth/login
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        refresh:
+            pattern: ^/api/auth/refresh
+            stateless: true
+            security: false
+
+        register:
+            pattern: ^/api/auth/register
+            stateless: true
+            security: false
+
+        api:
+            pattern: ^/api
+            stateless: true
+            jwt: ~
+
+    access_control:
+        - { path: ^/api/auth/login,           roles: PUBLIC_ACCESS }
+        - { path: ^/api/auth/register,        roles: PUBLIC_ACCESS }
+        - { path: ^/api/auth/refresh,         roles: PUBLIC_ACCESS }
+        - { path: ^/api/auth/password/reset,  roles: PUBLIC_ACCESS }
+        - { path: ^/api/auth/password/confirm,roles: PUBLIC_ACCESS }
+        - { path: ^/health,                   roles: PUBLIC_ACCESS }
+        - { path: ^/api,                      roles: IS_AUTHENTICATED_FULLY }
